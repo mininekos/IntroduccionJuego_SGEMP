@@ -27,10 +27,10 @@ while run:
         if event.type == pygame.QUIT:
             run = False
     keys= pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        paddlerect=paddlerect.move(-3,0)
-    if keys[pygame.K_RIGHT]:
-        paddlerect = paddlerect.move(3, 0)
+    if keys[pygame.K_LEFT] and paddlerect.left > 0:
+        paddlerect=paddlerect.move(-5,0)
+    if keys[pygame.K_RIGHT] and paddlerect.right < ventana.get_width():
+        paddlerect = paddlerect.move(5, 0)
     #Compruebo si hay colision
     if paddlerect.colliderect(ballrect):
         speed[1]=-speed[1]
