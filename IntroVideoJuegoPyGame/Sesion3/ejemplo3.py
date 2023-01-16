@@ -7,9 +7,9 @@ ventana = pygame.display.set_mode((WIDTH,HEIGHT))
 
 pygame.display.set_caption("Ejemplo 3")
 
-ball = pygame.image.load("./imagen/Pokeball.png")
+ball = pygame.image.load("imagen/Pokeball.png")
 ball= pygame.transform.scale(ball,(40,40))
-paddle=pygame.image.load("./imagen/barra.png")
+paddle=pygame.image.load("imagen/barra.png")
 paddle= pygame.transform.scale(paddle,(80,29))
 
 

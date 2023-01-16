@@ -7,7 +7,7 @@ ventana = pygame.display.set_mode((WIDTH,HEIGHT))
 
 pygame.display.set_caption("Ejemplo 2")
 #Crea el objeto pelota
-ball = pygame.image.load("./imagen/Pokeball.png")
+ball = pygame.image.load("imagen/Pokeball.png")
 # ball= pygame.transform.scale(ball(59,33)) no va
 #Obtengo el rectangulo del objeto anterior
 ballrect = ball.get_rect()
