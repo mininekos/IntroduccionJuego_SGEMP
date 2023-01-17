@@ -2,11 +2,14 @@ import time
 import turtle
 import random
 
-# Configuramos la ventana
 
+score=0
+delay=0.1
+
+# Configuramos la ventana
 wn= turtle.Screen()
-wn.title("Juego de Pong")
-wn.bgcolor("black")
+wn.title("Serpiente🐍")
+wn.bgcolor("green")
 wn.setup(width=600,height=600)
 wn.tracer(0)
 
@@ -21,14 +24,16 @@ cabeza.penup()
 cabeza.goto(0,0)
 cabeza.direction="stop"
 
+# La manzana
 manzana= turtle.Turtle()
 manzana.speed(0)
 manzana.shape("circle")
 manzana.color("red")
-# Para no dejar estela
 manzana.penup()
-manzana.goto(random.randint(-290,290),random.randint(-290,290))
-manzana.direction="stop"
+manzana.goto(random.randint(-280,280),random.randint(-280,280))
+
+# El cuerpo de la serpiente
+segmentos=[]
 
 def arriba():
     if cabeza.direction != "down":
@@ -64,6 +69,42 @@ wn.onkeypress(derecha,"Right")
 wn.onkeypress(izquierda,"Left")
 while True:
     wn.update()
+
+    if cabeza.distance(manzana)< 20:
+        x=random.randint(-280,280)
+        y=random.randint(-280,280)
+        manzana.goto(x,y)
+
+        nuevo_segmento=turtle.Turtle()
+        nuevo_segmento.speed(0)
+        nuevo_segmento.shape("square")
+        nuevo_segmento.color("blue")
+        nuevo_segmento.penup()
+        segmentos.append(nuevo_segmento)
+
+    totalSeg=len(segmentos)
+    for index in range(totalSeg -1,0,-1):
+        x=segmentos[index-1].xcor()
+        y=segmentos[index-1].ycor()
+        segmentos[index].goto(x,y)
+
+    if totalSeg > 0:
+        x=cabeza.xcor()
+        y=cabeza.ycor()
+        segmentos[0].goto(x,y)
+
+    if cabeza.ycor()>280 or cabeza.ycor()<-280 or cabeza.xcor()>280 or cabeza.xcor()<-280 :
+
+
+        cabeza.goto(0,0)
+        cabeza.direction="stop"
+        x = random.randint(-280, 280)
+        y = random.randint(-280, 280)
+        manzana.goto(x, y)
+        for segmento in segmentos:
+            segmento.reset()
+        segmentos.clear()
+
+
     mov()
-    Posponer=0.1
-    time.sleep(Posponer)
+    time.sleep(delay)
