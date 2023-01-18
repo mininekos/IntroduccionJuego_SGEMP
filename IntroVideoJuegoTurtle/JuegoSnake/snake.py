@@ -123,11 +123,22 @@ while True:
         for segmento in segmentos:
             segmento.goto(1000,1000)
         segmentos.clear()
-
-    #colision cuerpo
-    # for segmento in segmentos:
-    #     if cabeza.distance(segmento) < 0:
-    #         input("perdiste")
-
     mov()
+    #colision cuerpo
+    for segmento in segmentos:
+        if segmento.distance(cabeza) < 20:
+            score = 0
+            texto.clear()
+            texto.write(f"Score : {score} High Score: {high_score}",
+                        align="center", font=("candara", 24, "bold"))
+            cabeza.goto(0, 0)
+            cabeza.direction = "stop"
+            x = random.randint(-280, 280)
+            y = random.randint(-280, 280)
+            manzana.goto(x, y)
+            for segmento in segmentos:
+                segmento.goto(1000, 1000)
+            segmentos.clear()
+
+
     time.sleep(delay)
