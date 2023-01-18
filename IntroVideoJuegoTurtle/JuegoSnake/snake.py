@@ -4,6 +4,7 @@ import random
 
 
 score=0
+high_score=0
 delay=0.1
 
 # Configuramos la ventana
@@ -23,6 +24,16 @@ cabeza.color("white")
 cabeza.penup()
 cabeza.goto(0,0)
 cabeza.direction="stop"
+
+texto = turtle.Turtle()
+texto.speed(0)
+texto.shape("square")
+texto.color("white")
+texto.penup()
+texto.hideturtle()
+texto.goto(0, 250)
+texto.write(f"Score : {score} High Score: {high_score}",
+            align="center",font=("candara", 24, "bold"))
 
 # La manzana
 manzana= turtle.Turtle()
@@ -69,12 +80,17 @@ wn.onkeypress(derecha,"Right")
 wn.onkeypress(izquierda,"Left")
 while True:
     wn.update()
-
-    if cabeza.distance(manzana)< 20:
-        x=random.randint(-280,280)
-        y=random.randint(-280,280)
-        manzana.goto(x,y)
-
+    # Comer manzana
+    if cabeza.distance(manzana) < 20:
+        x = random.randint(-280, 280)
+        y = random.randint(-280, 280)
+        manzana.goto(x, y)
+        score+=10
+        if high_score<score:
+            high_score=score
+        texto.clear()
+        texto.write(f"Score : {score} High Score: {high_score}",
+                    align="center", font=("candara", 24, "bold"))
         nuevo_segmento=turtle.Turtle()
         nuevo_segmento.speed(0)
         nuevo_segmento.shape("square")
@@ -84,27 +100,34 @@ while True:
 
     totalSeg=len(segmentos)
     for index in range(totalSeg -1,0,-1):
-        x=segmentos[index-1].xcor()
-        y=segmentos[index-1].ycor()
-        segmentos[index].goto(x,y)
+        x = segmentos[index-1].xcor()
+        y = segmentos[index-1].ycor()
+        segmentos[index].goto(x, y)
 
     if totalSeg > 0:
-        x=cabeza.xcor()
-        y=cabeza.ycor()
-        segmentos[0].goto(x,y)
+        x = cabeza.xcor()
+        y = cabeza.ycor()
+        segmentos[0].goto(x, y)
 
-    if cabeza.ycor()>280 or cabeza.ycor()<-280 or cabeza.xcor()>280 or cabeza.xcor()<-280 :
-
-
-        cabeza.goto(0,0)
-        cabeza.direction="stop"
+    if cabeza.ycor() > 280 or cabeza.ycor() < -280 \
+            or cabeza.xcor() > 280 or cabeza.xcor() < -280:
+        score=0
+        texto.clear()
+        texto.write(f"Score : {score} High Score: {high_score}",
+                    align="center", font=("candara", 24, "bold"))
+        cabeza.goto(0, 0)
+        cabeza.direction = "stop"
         x = random.randint(-280, 280)
         y = random.randint(-280, 280)
         manzana.goto(x, y)
         for segmento in segmentos:
-            segmento.reset()
+            segmento.goto(1000,1000)
         segmentos.clear()
 
+    #colision cuerpo
+    # for segmento in segmentos:
+    #     if cabeza.distance(segmento) < 0:
+    #         input("perdiste")
 
     mov()
     time.sleep(delay)
