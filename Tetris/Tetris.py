@@ -24,8 +24,8 @@ ventana = pygame.display.set_mode((WIDTHPANTALLA,HEIGHTPANTALLA))
 pygame.display.set_caption("Tetris")
 
 # Dibujar cuadrado
-def dibujarCuadrado():
-
+def dibujarFigura(figura):
+    input()
 # Crear tablero
 def crearTablero(ventana):
     color_tablero=(50,50,50)
